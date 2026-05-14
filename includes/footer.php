@@ -8,7 +8,7 @@
     <div><h4>Contato</h4><p><?= e($ajustes['contato_footer'] ?? 'contato@PROHOSP.local') ?></p></div>
     <div><h4>Institucional</h4><a href="#">Privacidade</a><a href="#">Termos</a></div>
   </div>
-  <div class="container copyright">© <?= date('Y') ?> - Sistema de loja hospitalar.</div>
+  <center><div class="container copyright">© <?= date('Y') ?> - PROHOSP Distribuidora de Medicamentos LTDA</div></center>
 </footer>
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="<?= e(url_base('assets/js/main.js')) ?>"></script>

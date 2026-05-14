@@ -14,7 +14,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $link = url_base('admin/redefinir-senha.php?token=' . $token);
         $srv = $pdo->query('SELECT * FROM email_servidores WHERE ativo = 1 ORDER BY id DESC LIMIT 1')->fetch();
         if ($srv) { @mail($email, 'Recuperação de senha PROHOSP', "Acesse para redefinir sua senha: $link"); }
-        $msg = 'Se o e-mail existir, enviaremos as instruções. Em ambiente local, use: ' . $link;
+        $msg = 'Caso o e-mail esteja cadastrado em nossa base, enviaremos as instruções.';
         registrar_log($pdo, 'Recuperação de senha', 'Solicitação para ' . $email);
     } else { $msg = 'Se o e-mail existir, enviaremos as instruções.'; }
 }

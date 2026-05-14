@@ -8,10 +8,22 @@ function iniciar_sessao(): void {
     }
 }
 
+/**
+ * Escapa um valor para saída HTML segura.
+ *
+ * @param string|int|float|bool|null $valor
+ * @return string
+ */
 function e($valor): string {
     return htmlspecialchars((string)$valor, ENT_QUOTES, 'UTF-8');
 }
 
+/**
+ * Formata um valor numérico como moeda brasileira.
+ *
+ * @param string|int|float|bool|null $valor
+ * @return string
+ */
 function moeda($valor): string {
     return 'R$ ' . number_format((float)$valor, 2, ',', '.');
 }
