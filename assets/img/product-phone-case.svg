@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="700" height="520" viewBox="0 0 700 520" role="img" aria-label="Produto Store">
+  <defs>
+    <linearGradient id="g" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#0b55c7"/>
+      <stop offset="1" stop-color="#e11937"/>
+    </linearGradient>
+    <filter id="s" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="22" stdDeviation="22" flood-color="#06235c" flood-opacity=".22"/>
+    </filter>
+  </defs>
+  <rect width="700" height="520" rx="42" fill="#eaf2ff"/>
+  <circle cx="565" cy="95" r="72" fill="#ffe8ec"/>
+  <circle cx="120" cy="420" r="88" fill="#ffffff" opacity=".85"/>
+  <rect x="255" y="78" width="190" height="364" rx="42" fill="url(#g)" filter="url(#s)"/>
+  <rect x="276" y="110" width="148" height="300" rx="30" fill="#ffffff" opacity=".96"/>
+  <circle cx="350" cy="392" r="10" fill="#0b55c7"/>
+  <rect x="307" y="137" width="86" height="10" rx="5" fill="#e11937" opacity=".75"/>
+  <rect x="300" y="170" width="100" height="88" rx="20" fill="#eaf2ff"/>
+  <path d="M303 306h94" stroke="#073b8e" stroke-width="14" stroke-linecap="round"/>
+  <path d="M318 334h64" stroke="#e11937" stroke-width="14" stroke-linecap="round"/>
+</svg>
