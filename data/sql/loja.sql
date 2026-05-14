@@ -52,11 +52,14 @@ CREATE TABLE ajustes_pagina (
 
 CREATE TABLE menus (
   id INT AUTO_INCREMENT PRIMARY KEY,
+  parent_id INT NULL,
   titulo VARCHAR(90) NOT NULL,
   url VARCHAR(255) NOT NULL,
   ordem INT NOT NULL DEFAULT 1,
+  subordem INT NOT NULL DEFAULT 1,
   ativo TINYINT(1) NOT NULL DEFAULT 1,
-  criado_em TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+  criado_em TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  INDEX idx_menus_parent (parent_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE logs_acoes (
@@ -141,8 +144,8 @@ INSERT INTO ajustes_pagina (chave, valor) VALUES
 ('nome_loja','PROHOSP'),('titulo_pagina','PROHOSP | Materiais Hospitalares'),('contato_topo','Atendimento: contato@PROHOSP.local'),('contato_footer','contato@PROHOSP.local | (21) 0000-0000'),('texto_footer','Materiais hospitalares, medicamentos e descartáveis com compra segura.'),('logo','')
 ON DUPLICATE KEY UPDATE valor=VALUES(valor);
 
-INSERT INTO menus (titulo, url, ordem, ativo) VALUES
-('Início','index.php',1,1),('Produtos','index.php#produtos',2,1),('Medicamentos','index.php?busca=medicamento',3,1),('Material hospitalar','index.php?busca=hospitalar',4,1),('Admin','admin/login.php',5,1);
+INSERT INTO menus (parent_id, titulo, url, ordem, subordem, ativo) VALUES
+(NULL,'Início','index.php',1,1,1),(NULL,'Produtos','index.php#produtos',2,1,1),(2,'Medicamentos','index.php?busca=medicamento',2,1,1),(2,'Material hospitalar','index.php?busca=hospitalar',2,2,1),(NULL,'Admin','admin/login.php',5,1,1);
 
 INSERT INTO produtos (codigo,codigo_interno,descricao,tipo,categoria,preco,imagem,ativo,criado_em) VALUES
 ('MED001','INT-001','Máscara cirúrgica tripla com elástico','CX','Material hospitalar',29.90,'assets/img/placeholder-med.svg',1,NOW()),

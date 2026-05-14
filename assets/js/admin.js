@@ -9,6 +9,31 @@ $(function () {
     $('#adminOverlay').toggleClass('show');
   });
 
+  $('#sidebarCollapse').on('click', function () {
+    const sidebar = $('.admin-sidebar');
+    const collapsed = sidebar.toggleClass('collapsed').hasClass('collapsed');
+    $('.admin-shell').toggleClass('collapsed');
+    if (collapsed) {
+      $('.admin-nav-group').removeClass('open').find('.nav-group-toggle').attr('aria-expanded', 'false');
+    }
+  });
+
+  $('.nav-group-toggle').on('click', function () {
+    const group = $(this).closest('.admin-nav-group');
+    const isOpen = group.hasClass('open');
+
+    // Close all other groups to enforce accordion behavior
+    $('.admin-nav-group').not(group).removeClass('open').find('.nav-group-toggle').attr('aria-expanded', 'false');
+
+    if (isOpen) {
+      group.removeClass('open');
+      $(this).attr('aria-expanded', 'false');
+    } else {
+      group.addClass('open');
+      $(this).attr('aria-expanded', 'true');
+    }
+  });
+
   $('#adminOverlay').on('click', closeAdminMenu);
 
   $('.admin-nav a').on('click', function () {

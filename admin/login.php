@@ -21,23 +21,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Entrar - PROHOSP</title>
+  <title>PROHOSP</title>
   <link rel="stylesheet" href="<?= e(url_base('assets/css/style.css')) ?>">
 </head>
 <body class="login-body">
   <main class="login-shell">
-    <section class="login-hero">
-      <h1>Controle completo da loja.</h1>
-      <div class="login-metrics"><div><b>100%</b><span>Funcional</span></div><div><b>100%</b><span>Intuitivo</span></div><div><b>BackOffice</b><span>Auditável</span></div></div>
-    </section>
+  
     <section class="login-card">
-      <div class="login-brand"><div><h2>PROHOSP Distribuidora de Medicamentos</h2><p>Pessoal Autorizado</p></div></div>
+      <div class="login-brand"><div><h2>PROHOSP Distribuidora de Medicamentos LTDA</h2><p>Pessoal Autorizado</p></div></div>
       <?php if($erro): ?><div class="alert"><?= e($erro) ?></div><?php endif; ?>
       <form method="post" class="login-form">
         <input type="hidden" name="csrf_token" value="<?= csrf_token() ?>">
         <label>E-mail<input type="email" name="email" required autocomplete="email" placeholder="admin@prohosp.local"></label>
         <label>Senha<input type="password" name="senha" required autocomplete="current-password" placeholder="Digite sua senha"></label>
-        <button class="btn primary full" type="submit">Entrar no painel</button>
+        <button class="btn primary full" type="submit">Entrar</button>
         <a class="link" href="recuperar-senha.php">Recuperar senha</a>
       </form>
     </section>

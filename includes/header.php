@@ -30,7 +30,11 @@ function request_query(): string {
 $currentPath = request_path();
 $currentQuery = request_query();
 $ajustes = buscar_ajustes($pdo);
-$menus = $pdo->query('SELECT titulo, url FROM menus WHERE ativo = 1 ORDER BY ordem, id')->fetchAll();
+$menus = $pdo->query('SELECT id, parent_id, titulo, url FROM menus WHERE ativo = 1 ORDER BY ordem, subordem, id')->fetchAll();
+$menusPorPai = [];
+foreach ($menus as $menu) {
+    $menusPorPai[(int)($menu['parent_id'] ?? 0)][] = $menu;
+}
 $logo = $ajustes['logo'] ?? '';
 $defaultLogo = 'assets/img/logo.png';
 if ($logo !== '' && !preg_match('#^[a-z][a-z0-9+\-.]*://#i', $logo)) {
@@ -86,16 +90,42 @@ $nomeLoja = $ajustes['nome_loja'] ?? 'PROHOSP';
 
   <nav id="main-nav" class="main-nav" role="navigation" aria-label="Menu principal">
     <div class="container nav-scroll">
-      <?php foreach ($menus as $menu): ?>
+      <?php foreach ($menusPorPai[0] ?? [] as $menu): ?>
       <?php
         $menuUrl = trim($menu['url'] ?? '');
-        $menuHref = url_base($menuUrl);
-        $menuParts = parse_url($menuHref);
-        $menuPath = url_normalize($menuParts['path'] ?? '/');
-        $menuQuery = $menuParts['query'] ?? '';
-        $menuActive = !isset($menuParts['fragment']) && $menuPath === $currentPath && $menuQuery === $currentQuery;
+        $menuHref = $menuUrl !== '' ? url_base($menuUrl) : '#';
+        $menuActive = false;
+        if ($menuUrl !== '') {
+            $menuParts = parse_url($menuHref);
+            $menuPath = url_normalize($menuParts['path'] ?? '/');
+            $menuQuery = $menuParts['query'] ?? '';
+            $menuActive = !isset($menuParts['fragment']) && $menuPath === $currentPath && $menuQuery === $currentQuery;
+        }
+        $submenus = $menusPorPai[(int)$menu['id']] ?? [];
+        foreach ($submenus as $submenu) {
+            $submenuHref = url_base(trim($submenu['url'] ?? ''));
+            $submenuParts = parse_url($submenuHref);
+            $submenuPath = url_normalize($submenuParts['path'] ?? '/');
+            $submenuQuery = $submenuParts['query'] ?? '';
+            if (!isset($submenuParts['fragment']) && $submenuPath === $currentPath && $submenuQuery === $currentQuery) {
+                $menuActive = true;
+                break;
+            }
+        }
       ?>
+      <?php if ($submenus): ?>
+      <div class="nav-item has-submenu">
+        <a class="nav-link<?= $menuActive ? ' active' : '' ?>" href="<?= e($menuHref) ?>"><?= e($menu['titulo']) ?></a>
+        <div class="submenu">
+          <?php foreach ($submenus as $submenu): ?>
+          <?php $submenuUrl = trim($submenu['url'] ?? ''); ?>
+          <a href="<?= e($submenuUrl !== '' ? url_base($submenuUrl) : '#') ?>"><?= e($submenu['titulo']) ?></a>
+          <?php endforeach; ?>
+        </div>
+      </div>
+      <?php else: ?>
       <a class="nav-link<?= $menuActive ? ' active' : '' ?>" href="<?= e($menuHref) ?>"><?= e($menu['titulo']) ?></a>
+      <?php endif; ?>
       <?php endforeach; ?>
     </div>
   </nav>

@@ -6,14 +6,19 @@ $u = usuario_logado();
 $current = basename($_SERVER['SCRIPT_NAME'] ?? 'index.php');
 $nav = [
   ['index.php', 'Dashboard', '⌂'],
+  
+];
+$nav2 = [
+
   ['usuarios.php', 'Usuários', '👥'],
   ['produtos.php', 'Produtos', '□'],
-  ['email.php', 'E-mail', '✉'],
-  ['pagina.php', 'Página', '⚙'],
   ['ceps.php', 'CEPs', '⌖'],
   ['notificacoes.php', 'Notificações', '🔔'],
-  ['bancos.php', 'Bancos', '▣'],
-  ['regras-pedido.php', 'Regras', '✓'],
+];
+$nav3 = [
+  ['pagina.php', 'Ajustes do Site', '⚙'],
+  ['email.php', 'Servidor de E-mail', '✉'],
+  ['bancos.php', 'Banco de Dados', '▣'],
   ['logs.php', 'Logs', '☰'],
 ];
 ?>
@@ -22,25 +27,49 @@ $nav = [
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Admin - PROHOSP</title>
+  <title>Administração</title>
   <link rel="stylesheet" href="<?= e(url_base('assets/css/style.css')) ?>">
 </head>
 <body class="admin-body">
 <div id="adminOverlay" class="admin-overlay"></div>
 <aside class="admin-sidebar">
   <div class="admin-logo-wrap">
-    <a class="admin-logo" href="index.php"><span class="admin-logo-icon">+</span><strong>PROHOSP</strong></a>
-    <small>Painel administrativo</small>
+    <a class="admin-logo" href="index.php"><strong>PROHOSP</strong></a>
+    <button id="sidebarCollapse" class="sidebar-collapse" type="button" aria-label="Recolher painel">⋘</button>
   </div>
-  <nav class="admin-nav">
-    <span class="nav-label">Principal</span>
-    <?php foreach ($nav as $item): ?>
-      <a class="<?= $current === $item[0] ? 'active' : '' ?>" href="<?= e($item[0]) ?>"><span><?= e($item[2]) ?></span><em><?= e($item[1]) ?></em></a>
-    <?php endforeach; ?>
-    <span class="nav-label">Conta</span>
-    <a href="<?= e(url_base('index.php')) ?>"><span>↗</span><em>Ver loja</em></a>
-    <a href="sair.php"><span>⇥</span><em>Sair</em></a>
-  </nav>
+  <div class="admin-nav-section">
+    <div class="admin-nav-group">
+      <button class="nav-group-toggle" type="button" aria-expanded="false"><span>PRINCIPAL</span><em>⯈</em></button>
+      <nav class="admin-nav nav-group-list">
+        <?php foreach ($nav as $item): ?>
+          <a class="<?= $current === $item[0] ? 'active' : '' ?>" href="<?= e($item[0]) ?>"><span><?= e($item[2]) ?></span><em><?= e($item[1]) ?></em></a>
+        <?php endforeach; ?>
+      </nav>
+    </div>
+    <div class="admin-nav-group">
+      <button class="nav-group-toggle" type="button" aria-expanded="false"><span>CADASTROS</span><em>⯈</em></button>
+      <nav class="admin-nav nav-group-list">
+        <?php foreach ($nav2 as $item): ?>
+          <a class="<?= $current === $item[0] ? 'active' : '' ?>" href="<?= e($item[0]) ?>"><span><?= e($item[2]) ?></span><em><?= e($item[1]) ?></em></a>
+        <?php endforeach; ?>
+      </nav>
+    </div>
+    <div class="admin-nav-group">
+      <button class="nav-group-toggle" type="button" aria-expanded="false"><span>SERVIÇOS</span><em>⯈</em></button>
+      <nav class="admin-nav nav-group-list">
+        <?php foreach ($nav3 as $item): ?>
+          <a class="<?= $current === $item[0] ? 'active' : '' ?>" href="<?= e($item[0]) ?>"><span><?= e($item[2]) ?></span><em><?= e($item[1]) ?></em></a>
+        <?php endforeach; ?>
+      </nav>
+    </div>
+    <div class="admin-nav-group">
+      <button class="nav-group-toggle" type="button" aria-expanded="false"><span>Conta</span><em>⯈</em></button>
+      <nav class="admin-nav nav-group-list">
+        <a href="<?= e(url_base('index.php')) ?>"><span>↗</span><em>Ver loja</em></a>
+        <a href="sair.php"><span>⇥</span><em>Sair</em></a>
+      </nav>
+    </div>
+  </div>
 </aside>
 <div class="admin-shell">
   <header class="admin-top">
