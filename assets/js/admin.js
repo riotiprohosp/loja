@@ -34,6 +34,34 @@ $(function () {
     }
   });
 
+  $('.admin-sub-toggle').on('click', function () {
+    const sub = $(this).closest('.admin-nav-sub');
+    const isOpen = sub.toggleClass('open').hasClass('open');
+    $(this).attr('aria-expanded', isOpen ? 'true' : 'false');
+  });
+
+  function openAdminModal(modal) {
+    modal.addClass('show').attr('aria-hidden', 'false');
+    $('body').addClass('modal-open');
+  }
+
+  function closeAdminModal(modal) {
+    modal.removeClass('show').attr('aria-hidden', 'true');
+    $('body').removeClass('modal-open');
+  }
+
+  $('.open-product-modal').on('click', function () {
+    openAdminModal($('#productModal'));
+  });
+
+  $('.admin-modal .admin-modal-backdrop, .admin-modal .modal-close').on('click', function () {
+    closeAdminModal($(this).closest('.admin-modal'));
+  });
+
+  $('[data-auto-open="true"]').each(function () {
+    openAdminModal($(this));
+  });
+
   $('#adminOverlay').on('click', closeAdminMenu);
 
   $('.admin-nav a').on('click', function () {
@@ -48,5 +76,41 @@ $(function () {
 
   $('table').on('click', 'button[name="excluir"], button[name="excluir_menu"]', function () {
     return confirm('Confirma a exclusão?');
+  });
+
+  $('.variable-toggle').on('click', function () {
+    const picker = $(this).closest('.variable-picker');
+    const isOpen = picker.toggleClass('open').hasClass('open');
+    $(this).attr('aria-expanded', isOpen ? 'true' : 'false');
+  });
+
+  $('.variable-list button').on('click', function () {
+    const variable = $(this).data('variable');
+    const textarea = $('#mensagemPadrao').get(0);
+    if (!textarea || !variable) return;
+
+    const start = textarea.selectionStart ?? textarea.value.length;
+    const end = textarea.selectionEnd ?? textarea.value.length;
+    textarea.value = textarea.value.slice(0, start) + variable + textarea.value.slice(end);
+    const nextPosition = start + variable.length;
+    textarea.focus();
+    textarea.setSelectionRange(nextPosition, nextPosition);
+    $(this).closest('.variable-picker').removeClass('open').find('.variable-toggle').attr('aria-expanded', 'false');
+  });
+
+  $(document).on('click', function (event) {
+    if ($(event.target).closest('.variable-picker').length) return;
+    $('.variable-picker').removeClass('open').find('.variable-toggle').attr('aria-expanded', 'false');
+  });
+
+  // Promoção: habilita/desabilita o campo de valor promocional
+  $(document).on('change', 'input[name="promocao_ativa"]', function () {
+    const form = $(this).closest('form');
+    const promoInput = form.find('input[name="promocao"]');
+    if ($(this).is(':checked')) {
+      promoInput.prop('disabled', false);
+    } else {
+      promoInput.prop('disabled', true).val('0.00');
+    }
   });
 });

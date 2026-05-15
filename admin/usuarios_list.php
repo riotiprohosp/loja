@@ -22,50 +22,42 @@ $usuarios=$pdo->query('SELECT * FROM usuarios ORDER BY id DESC')->fetchAll();
 <p class="muted"></p>
 
 <div class="grid-2">
-    <section class="panel">
-        <h2><?= $editar ? 'Editar' : 'Novo' ?> usuário</h2>
-        
-        <form method="post" class="form-grid">
-            <input type="hidden" name="csrf_token" value="<?= csrf_token() ?>">
-            <input type="hidden" name="id" value="<?= e($editar['id'] ?? '') ?>">
-            
-            <label>
-                Nome
-                <input name="nome" required value="<?= e($editar['nome'] ?? '') ?>">
-            </label>
-            
-            <label>
-                Usuário
-                <input name="usuario" required value="<?= e($editar['usuario'] ?? '') ?>">
-            </label>
-            
-            <label>
-                E-mail
-                <input type="email" name="email" required value="<?= e($editar['email'] ?? '') ?>">
-            </label>
-            
-            <label>
-                Perfil
-                <select name="perfil">
-                    <option value="administrador" <?= ($editar['perfil'] ?? '') === 'administrador' ? 'selected' : '' ?>>Administrador</option>
-                    <option value="gerencial" <?= ($editar['perfil'] ?? '') === 'gerencial' ? 'selected' : '' ?>>Gerencial</option>
-                    <option value="operador" <?= ($editar['perfil'] ?? '') === 'operador' ? 'selected' : '' ?>>Operador</option>
-                </select>
-            </label>
-            
-            <label>
-                Senha
-                <input type="password" name="senha" <?= $editar ? '' : 'required' ?>>
-            </label>
-            
-            <label class="check">
-                <input type="checkbox" name="ativo" <?= ($editar['ativo'] ?? 1) ? 'checked' : '' ?>> Ativo
-            </label>
-            
-            <button class="btn primary">Salvar</button>
-        </form>
-    </section>
 
+
+    <section class="panel">
+        <h2>Usuários</h2>
+        <div class="table-wrap">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Nome</th>
+                        <th>E-mail</th>
+                        <th>Perfil</th>
+                        <th>Status</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach($usuarios as $u): ?>
+                        <tr>
+                            <td><?= e($u['nome']) ?></td>
+                            <td><?= e($u['email']) ?></td>
+                            <td><?= e($u['perfil']) ?></td>
+                            <td><?= $u['ativo'] ? 'Ativo' : 'Inativo' ?></td>
+                            <td>
+                                <a href="?editar=<?= (int)$u['id'] ?>">Editar</a>
+                                <form method="post" class="inline">
+                                    <input type="hidden" name="csrf_token" value="<?= csrf_token() ?>">
+                                    <input type="hidden" name="id" value="<?= (int)$u['id'] ?>">
+                                    <button name="excluir" onclick="return confirm('Desativar usuário?')">Excluir</button>
+                                </form>
+                            </td>
+                        </tr>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
+        </div>
+    </section>
 </div>
 
 <?php require_once __DIR__ . '/includes/admin-footer.php'; ?>

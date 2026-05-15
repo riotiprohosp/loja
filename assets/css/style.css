@@ -11,6 +11,43 @@ body.admin-body .admin-searchbar input::placeholder{color:var(--slate-500);font-
 body.admin-body .admin-userbox{display:flex;align-items:center;gap:12px;text-align:left}
 body.admin-body .admin-userbox>div{display:grid;text-align:left}
 body.admin-body .admin-avatar{display:grid;place-items:center;width:40px;height:40px;border-radius:14px;background:linear-gradient(135deg,var(--blue-700),var(--red-600));color:#fff;font-weight:900;box-shadow:0 10px 24px rgba(11,74,170,.22)}
+body.admin-body .admin-nav-sub{display:grid;gap:6px}
+body.admin-body .admin-nav .admin-sub-toggle{appearance:none;display:flex;align-items:center;gap:10px;width:100%;padding:13px 14px;border:0;border-radius:18px;background:transparent;color:#dbeafe;font:inherit;font-weight:800;line-height:1.2;cursor:pointer;text-align:left}
+body.admin-body .admin-sub-toggle:hover,body.admin-body .admin-sub-toggle.active{background:rgba(255,255,255,.12);color:#fff}
+body.admin-body .admin-sub-toggle span{width:20px;text-align:center}
+body.admin-body .admin-sub-toggle em{flex:1;font-style:normal}
+body.admin-body .admin-sub-toggle b{font-size:12px;transition:.2s transform}
+body.admin-body .admin-nav-sub.open .admin-sub-toggle b{transform:rotate(90deg)}
+body.admin-body .admin-sub-list{display:grid!important;grid-template-columns:1fr;gap:6px;max-height:0;overflow:hidden;opacity:0;padding-left:18px;transition:max-height .22s ease,opacity .18s ease}
+body.admin-body .admin-nav-sub.open .admin-sub-list{max-height:180px;opacity:1}
+body.admin-body .admin-nav .admin-sub-list a{display:flex;align-items:center;gap:8px;width:100%;padding:11px 14px;border-radius:16px;background:rgba(255,255,255,.04);color:#dbeafe;font-weight:800}
+body.admin-body .admin-sub-list a.active{background:#fff;color:var(--blue-950)}
+body.admin-body .field-with-tools{display:grid;gap:7px;color:var(--blue-950);font-weight:900}
+body.admin-body .field-head{display:flex;align-items:center;justify-content:flex-start;gap:10px}
+body.admin-body .field-head>span::after{content:"|";display:inline-block;margin-left:10px;color:var(--slate-500);font-weight:800}
+body.admin-body .variable-picker{position:relative}
+body.admin-body .variable-toggle{border:1px solid var(--slate-200);background:var(--blue-100);color:var(--blue-800);border-radius:999px;padding:8px 12px;font-size:13px;font-weight:900;cursor:pointer}
+body.admin-body .variable-toggle:hover,body.admin-body .variable-picker.open .variable-toggle{background:var(--blue-800);border-color:var(--blue-800);color:#fff}
+body.admin-body .variable-list{position:absolute;right:0;top:calc(100% + 8px);width:min(360px,calc(100vw - 52px));max-height:320px;overflow:auto;padding:8px;background:#fff;border:1px solid var(--slate-200);border-radius:18px;box-shadow:var(--shadow);opacity:0;visibility:hidden;transform:translateY(-6px);transition:.18s ease;z-index:90}
+body.admin-body .variable-picker.open .variable-list{opacity:1;visibility:visible;transform:translateY(0)}
+body.admin-body .variable-list button{display:grid;width:100%;gap:3px;padding:11px 12px;border:0;border-radius:12px;background:transparent;color:var(--blue-950);text-align:left;cursor:pointer}
+body.admin-body .variable-list button:hover{background:var(--blue-100)}
+body.admin-body .variable-list strong{font-size:13px}
+body.admin-body .variable-list small{color:var(--slate-500);font-weight:800}
+body.admin-body .admin-shell{display:flex;min-height:100vh;flex-direction:column}
+body.admin-body .admin-content{flex:1}
+body.admin-body .admin-footer{display:flex;align-items:center;justify-content:space-between;gap:14px;margin:0 28px 22px;padding:18px 0;border-top:1px solid var(--slate-200);color:var(--slate-500);font-size:13px;font-weight:800}
+body.admin-body .admin-footer a{color:var(--blue-700);font-weight:900}
+body.admin-body{height:100vh;min-height:100vh;overflow:hidden}
+body.admin-body .admin-sidebar{height:100vh;overflow-x:hidden;overflow-y:auto}
+body.admin-body .admin-shell{height:100vh;min-height:0;overflow:hidden}
+body.admin-body .admin-top{flex:0 0 74px;position:relative}
+body.admin-body .admin-content{min-height:0;overflow-x:hidden;overflow-y:auto}
+body.admin-body .admin-footer{flex:0 0 auto}
+.password-field{position:relative;display:block}
+.login-card .password-field input{padding-right:52px}
+.password-toggle{position:absolute;right:10px;top:50%;transform:translateY(-50%);display:grid;place-items:center;width:34px;height:34px;border:0;border-radius:50%;background:var(--blue-100);color:var(--blue-800);font-size:18px;font-weight:900;cursor:pointer}
+.password-toggle:hover,.password-toggle[aria-pressed="true"]{background:var(--blue-800);color:#fff}
 .main-nav{position:relative;z-index:55}
 .nav-scroll{overflow:visible}
 .nav-item{position:relative;display:flex;align-items:center;margin:8px 0}
@@ -23,3 +60,52 @@ body.admin-body .admin-avatar{display:grid;place-items:center;width:40px;height:
 @media(max-width:820px){body.admin-body .admin-top{gap:12px}body.admin-body .admin-searchbar{flex:1;width:auto;min-width:0}body.admin-body .admin-userbox{display:none}}
 @media(max-width:820px){.nav-scroll{overflow:auto}.nav-item{display:grid;margin:6px 0}.nav-item .nav-link{width:100%;margin:0;text-align:center}.submenu{position:static;min-width:0;margin-top:6px;background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.16);box-shadow:none;opacity:1;visibility:visible;transform:none}.submenu a{color:#fff;text-align:center;white-space:normal}.submenu a:hover{background:rgba(255,255,255,.16);color:#fff}}
 @media(max-width:560px){body.admin-body .admin-searchbar{height:42px;padding:0 12px}body.admin-body .admin-searchbar input{font-size:13px}}
+
+
+.admin-modal {
+  position: fixed;
+  inset: 0;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  z-index: 1200;
+}
+.admin-modal.show {
+  display: flex;
+}
+.admin-modal-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(15, 23, 42, .6);
+  backdrop-filter: blur(3px);
+}
+.admin-modal-dialog {
+  position: relative;
+  width: min(980px, 100%);
+  max-height: calc(100vh - 48px);
+  overflow: hidden;
+  z-index: 1;
+}
+.admin-modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 18px;
+}
+.admin-modal-header h2 {
+  margin: 0;
+  font-size: 1.35rem;
+}
+.modal-close {
+  border: 0;
+  background: transparent;
+  color: var(--slate-950);
+  font-size: 28px;
+  line-height: 1;
+  cursor: pointer;
+}
+body.modal-open {
+  overflow: hidden;
+}
